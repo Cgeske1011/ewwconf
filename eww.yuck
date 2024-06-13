@@ -1,6 +1,6 @@
 (defvar current_sink "")
 (defpoll get-current-sink :interval "10s"
-  "bash /home/christian/.config/eww/scripts/hightlight-output.sh")
+  "bash /home/[your_user]/.config/eww/scripts/hightlight-output.sh")
 
 
 (defwidget scale-test2 []
@@ -31,13 +31,13 @@
   (box :orientation "v"
        :class "audio-output"
     (button :class "button $(if (eq ${current_sink} '54') 'active' '')"
-           :onclick "/home/christian/.config/eww/scripts/audio-outputs.sh 54" "Output 1: BT/SPKR")
+           :onclick "/home/[your_user]/.config/eww/scripts/audio-outputs.sh 54" "Output 1: BT/SPKR")
     (button :class "button $(if (eq ${current_sink} '55') 'active' '')"
-           :onclick "/home/christian/.config/eww/scripts/audio-outputs.sh 55" "Output 2: TV")
+           :onclick "/home/[your_user]/.config/eww/scripts/audio-outputs.sh 55" "Output 2: TV")
     (button :class "button $(if (eq ${current_sink} '56') 'active' '')"
-           :onclick "/home/christian/.config/eww/scripts/audio-outputs.sh 56" "Output 3: Speakers")
+           :onclick "/home/[your_user]/.config/eww/scripts/audio-outputs.sh 56" "Output 3: Speakers")
     (button :class "button $(if (eq ${current_sink} '1215') 'active' '')"
-           :onclick "/home/christian/.config/eww/scripts/audio-outputs.sh 1215" "Output 4: Bluetooth")))
+           :onclick "/home/[your_user]/.config/eww/scripts/audio-outputs.sh 1215" "Output 4: Bluetooth")))
 
 (defwindow audio-output-switcher []
   :monitor 1
