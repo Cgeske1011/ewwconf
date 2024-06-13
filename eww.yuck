@@ -1,0 +1,60 @@
+(defvar current_sink "")
+(defpoll get-current-sink :interval "10s"
+  "bash /home/christian/.config/eww/scripts/hightlight-output.sh")
+
+
+(defwidget scale-test2 []
+  (box :orientation "v"
+       :class "test-slide2"
+       :padding-top "15px"
+    (scale :onchange "pactl set-sink-volume 0 $(printf %.0f {})%"
+           :min 0
+           :max 101
+           :value "pacmd list-sinks | grep -A 7 '\\* index' | grep volume | awk -F/ '{print $2}' | tr -d ' ' | sed 's/%$//'"
+           :active true
+           :class "slider")
+    (scale :onchange "pactl set-sink-volume 0 $(printf %.0f {})%"
+           :min 0
+           :max 101
+           :value "pacmd list-sinks | grep -A 7 '\\* index' | grep volume | awk -F/ '{print $2}' | tr -d ' ' | sed 's/%$//'"
+           :active true
+           :class "slider2")))
+(defwindow test2 
+  :class "testwin-2"
+  :monitor 1 ;; Explicitly specify the monitor
+  :geometry (geometry :x "300px" :y "30px" :anchor "top left" :width "300px" :height "150px")
+  (box :orientation "v"
+       :class "slider-container"
+    (scale-test2)))
+
+(defwidget audio-output-switcher []
+  (box :orientation "v"
+       :class "audio-output"
+    (button :class "button $(if (eq ${current_sink} '54') 'active' '')"
+           :onclick "/home/christian/.config/eww/scripts/audio-outputs.sh 54" "Output 1: BT/SPKR")
+    (button :class "button $(if (eq ${current_sink} '55') 'active' '')"
+           :onclick "/home/christian/.config/eww/scripts/audio-outputs.sh 55" "Output 2: TV")
+    (button :class "button $(if (eq ${current_sink} '56') 'active' '')"
+           :onclick "/home/christian/.config/eww/scripts/audio-outputs.sh 56" "Output 3: Speakers")
+    (button :class "button $(if (eq ${current_sink} '1215') 'active' '')"
+           :onclick "/home/christian/.config/eww/scripts/audio-outputs.sh 1215" "Output 4: Bluetooth")))
+
+(defwindow audio-output-switcher []
+  :monitor 1
+  :stacking "fg"
+  :geometry (geometry :x "900px" :y "30px" :anchor "top right" :width "300px" :height "300px") 
+  (box :orientation "v"
+       :class "audio-outpt"
+       (audio-output-switcher)))
+;; Widget for the invisible closer
+(defwidget closer [window]
+  (eventbox :class "closer" :onclick "eww close ${window}; eww close closer"))
+
+;; Window definition for the closer
+(defwindow closer
+  :class "closer"
+  :monitor 1
+  :geometry (geometry :x "0" :y "0" :width "150%" :height "150%")
+  :stacking "fg"
+  :focusable false
+  (closer :window "audio-output-switcher"))

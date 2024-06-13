@@ -1,0 +1,44 @@
+
+/*#audio-output-switcher {
+  .active {
+     background-color: #4CAF50;   
+     color: white;  
+  }
+}
+.closer {
+  background: rgba(0, 0, 0, 0);
+}*//* Assuming .closer is the class for your invisible closer */
+* {
+  all: unset;
+  font-family: "Cooper Hewitt";
+}
+
+.closer {
+  background: rgba(0, 0, 0, 0);
+}
+
+#audio-output-switcher {
+    opacity: 1;          
+    background-color: maroon;
+    color: red; 
+    border-radius: 20em;
+}
+/*.active {
+  background-color: red; 
+  color: white;               
+}*/
+.button {
+  background-color:#3b1717;
+  color: rgb(244, 182, 182);
+  transition: background-color 0.3s;
+  border-radius: 1em;
+  
+
+  &:hover {
+    background-color: #e83030;
+  }
+  .active {
+    background-color: #4caf50;
+    color: white;
+  }
+}
